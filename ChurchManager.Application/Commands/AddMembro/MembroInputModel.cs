@@ -1,4 +1,4 @@
-﻿using ChurchManager.Application.Enums;
+﻿using ChurchManager.Domain.Enums;
 using System;
 
 namespace ChurchManager.Application.Commands.AddMembro
