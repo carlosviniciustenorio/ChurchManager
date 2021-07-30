@@ -4,5 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChurchManager.Application\ChurchManager.Application.csproj" />
+    <ProjectReference Include="..\ChurchManager.Infrastructure\ChurchManager.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>
