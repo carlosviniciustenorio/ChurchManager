@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ChurchManager.Application.Entidades
+namespace ChurchManager.Domain.Entidades
 {
     public class Igreja
     {
