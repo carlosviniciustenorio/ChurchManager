@@ -1,4 +1,4 @@
-﻿using ChurchManager.Application.Licenciados;
+﻿using ChurchManager.Domain.Licenciados;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChurchManager.Infrastructure.Persistencia

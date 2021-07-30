@@ -1,5 +1,5 @@
-﻿using ChurchManager.Application.Entidades;
-using ChurchManager.Application.Interfaces.Repositorios;
+﻿using ChurchManager.Domain.Entidades;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Text;

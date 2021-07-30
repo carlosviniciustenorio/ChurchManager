@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChurchManager.Application.Interfaces.Repositorios
+namespace ChurchManager.Domain.Interfaces.Repositorios
 {
     public interface IMembroRepositorio
     { }

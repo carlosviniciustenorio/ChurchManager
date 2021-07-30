@@ -1,4 +1,4 @@
-﻿namespace ChurchManager.Application.Interfaces.Repositorios
+﻿namespace ChurchManager.Domain.Interfaces.Repositorios
 {
     public interface ILicenciadoRepositorio
     { }

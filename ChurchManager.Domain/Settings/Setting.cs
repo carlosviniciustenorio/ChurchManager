@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChurchManager.Application.Settings
+namespace ChurchManager.Domain.Settings
 {
     public class Setting
     {

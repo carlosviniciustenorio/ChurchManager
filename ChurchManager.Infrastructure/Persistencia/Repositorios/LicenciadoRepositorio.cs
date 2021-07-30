@@ -1,5 +1,5 @@
-﻿using ChurchManager.Application.Interfaces.Repositorios;
-using ChurchManager.Application.Licenciados;
+﻿using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Domain.Licenciados;
 
 namespace ChurchManager.Infrastructure.Persistencia.Repositorios
 {

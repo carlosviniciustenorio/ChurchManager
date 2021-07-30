@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChurchManager.Application.Licenciados
+namespace ChurchManager.Domain.Licenciados
 {
     public class InfoBD
     {

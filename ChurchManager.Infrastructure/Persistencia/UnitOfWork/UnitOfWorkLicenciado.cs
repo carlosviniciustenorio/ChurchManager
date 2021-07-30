@@ -1,7 +1,4 @@
 ﻿using ChurchManager.Infrastructure.Persistencia.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChurchManager.Infrastructure.Persistencia.UnitOfWork
 {
