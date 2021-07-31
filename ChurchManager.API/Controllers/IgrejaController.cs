@@ -38,7 +38,7 @@ namespace ChurchManager.API.Controllers
             var igrejaQuery = new GetIgrejasQuery();
             var result = await _mediator.Send(igrejaQuery);
 
-            return Ok(result);
+            return Ok();
         }
 
         #endregion
