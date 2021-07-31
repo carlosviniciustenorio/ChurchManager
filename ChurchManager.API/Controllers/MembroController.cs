@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize]
     public class MembroController : ControllerBase
     {
         #region Campos

@@ -22,7 +22,10 @@ namespace ChurchManager.API.Controllers
         private readonly Setting _appSettings;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<HomeController> logger, IOptions<Setting> appSettings)
+        public HomeController(SignInManager<IdentityUser> signInManager, 
+            UserManager<IdentityUser> userManager, 
+            ILogger<HomeController> logger,
+            IOptions<Setting> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize]
     public class IgrejaController : ControllerBase
     {
         #region Campos
@@ -32,13 +32,14 @@ namespace ChurchManager.API.Controllers
         #region GET
         
         [HttpGet]
+        [Route("Buscar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Igreja()
         {
             var igrejaQuery = new GetIgrejasQuery();
             var result = await _mediator.Send(igrejaQuery);
 
-            return Ok();
+            return Ok(result);
         }
 
         #endregion
