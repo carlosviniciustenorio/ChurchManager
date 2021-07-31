@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace ChurchManager.API.Controllers
         }
 
         [HttpPost]
-        [Route("Autenticar")]
+        [Route("Acesso")]
         public async Task<IActionResult> Home([FromBody] UsuarioInputModel usuario)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(e => e.Errors));

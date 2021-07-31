@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize]
     public class IgrejaController : ControllerBase
