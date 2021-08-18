@@ -1,8 +1,5 @@
 ﻿using AutoFixture;
 using ChurchManager.Domain.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace ChurchManager.Domain.Tests.IgrejaTest
