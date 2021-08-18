@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.API", "ChurchManager.API\ChurchManager.API.csproj", "{25805AFD-56A2-4AC0-AAB4-39E0C19C4122}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.API", "ChurchManager.API\ChurchManager.API.csproj", "{25805AFD-56A2-4AC0-AAB4-39E0C19C4122}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.Application", "ChurchManager.Application\ChurchManager.Application.csproj", "{EA3CF79E-8933-4B04-B6FC-3E6C0B3E4414}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.Application", "ChurchManager.Application\ChurchManager.Application.csproj", "{EA3CF79E-8933-4B04-B6FC-3E6C0B3E4414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.Domain", "ChurchManager.Domain\ChurchManager.Domain.csproj", "{FA8C11ED-C4BB-421B-A6AC-1B3EDB707F93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.Domain", "ChurchManager.Domain\ChurchManager.Domain.csproj", "{FA8C11ED-C4BB-421B-A6AC-1B3EDB707F93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.Infrastructure", "ChurchManager.Infrastructure\ChurchManager.Infrastructure.csproj", "{0631EB45-3D93-481E-884C-8E4C4F71D2D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.Infrastructure", "ChurchManager.Infrastructure\ChurchManager.Infrastructure.csproj", "{0631EB45-3D93-481E-884C-8E4C4F71D2D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChurchManager.Tests", "ChurchManager.Tests", "{9DAC3DE9-C920-4415-9C31-8EF44634D366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.Application.Tests", "ChurchManager.Application.Tests\ChurchManager.Application.Tests.csproj", "{770966FD-A03A-4FE9-9B94-A50D8A26456A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{0631EB45-3D93-481E-884C-8E4C4F71D2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0631EB45-3D93-481E-884C-8E4C4F71D2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0631EB45-3D93-481E-884C-8E4C4F71D2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{770966FD-A03A-4FE9-9B94-A50D8A26456A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{770966FD-A03A-4FE9-9B94-A50D8A26456A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{770966FD-A03A-4FE9-9B94-A50D8A26456A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{770966FD-A03A-4FE9-9B94-A50D8A26456A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{770966FD-A03A-4FE9-9B94-A50D8A26456A} = {9DAC3DE9-C920-4415-9C31-8EF44634D366}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7950CEF-EF9F-40C5-897A-57DF4FA20958}

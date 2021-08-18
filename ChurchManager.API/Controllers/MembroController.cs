@@ -6,6 +6,7 @@ using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
@@ -89,7 +90,7 @@ namespace ChurchManager.API.Controllers
                     obj.Funcao, obj.Status, obj.Foto
                     );
 
-
+                
                 if (membro != null)
                 {
                     membro.AtualizarMembro(membroAtual);

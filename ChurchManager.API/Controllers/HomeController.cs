@@ -1,5 +1,6 @@
 ﻿using ChurchManager.Application.Commands.AddUsuario;
 using ChurchManager.Domain.Settings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
