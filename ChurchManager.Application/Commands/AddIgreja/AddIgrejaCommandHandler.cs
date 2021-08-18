@@ -18,7 +18,9 @@ namespace ChurchManager.Application.Commands.AddIgreja
         {
             var igreja = new Igreja(request.Cnpj, request.Nome, request.RazaoSocial, request.Endereco, request.Cep, true, request.Matriz);
             igreja.AdicionarDirigente(request.DirigenteId);
-            _unitOfWork.RepositorioIgreja.Add(igreja);
+            
+            if(_unitOfWork.RepositorioIgreja != null)
+                _unitOfWork.RepositorioIgreja.Add(igreja);
 
             return Task.FromResult(Unit.Value);
         }

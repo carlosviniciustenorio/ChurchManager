@@ -28,6 +28,7 @@ namespace ChurchManager.Infrastructure.Persistencia.UnitOfWork
             {
                 return igrejaRepositorio = igrejaRepositorio ?? new IgrejaRepositorio(_context);
             }
+
         }
 
         public void Save()

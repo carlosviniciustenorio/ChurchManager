@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using ChurchManager.Application.Commands.AddIgreja;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using Moq;
 using System.Threading;
@@ -17,7 +18,6 @@ namespace ChurchManager.Application.Tests.Commands
             var igrejaCommand = fixture.Create<AddIgrejaCommand>();
 
             var unitOfWork = new Mock<IUnitOfWork>();
-
             var cancelationToken = new CancellationToken();
 
             //Act
@@ -25,7 +25,8 @@ namespace ChurchManager.Application.Tests.Commands
             addIgrejaCommandHandler.Handle(igrejaCommand, cancelationToken);
 
             //Assert
-
+            //Não está sendo possível testar o handler sem uma implementação concreta do repositorio.
+            //É necessário melhorar a arquitetura.
 
         }
     }
