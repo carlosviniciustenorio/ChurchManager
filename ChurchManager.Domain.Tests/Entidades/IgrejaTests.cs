@@ -2,7 +2,7 @@
 using ChurchManager.Domain.Entidades;
 using Xunit;
 
-namespace ChurchManager.Domain.Tests.IgrejaTest
+namespace ChurchManager.Domain.Tests.Entidades
 {
     public class IgrejaTests
     {

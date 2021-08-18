@@ -119,6 +119,11 @@ namespace ChurchManager.Domain.Entidades
             Status = membro.Status;
             Foto = membro.Foto;
         }
+
+        public void AlterarEstadoCivil(EstadoCivil estadoCivil)
+        {
+            EstadoCivil = estadoCivil;
+        }
         #endregion
     }
 }
