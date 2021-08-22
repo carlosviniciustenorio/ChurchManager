@@ -1,28 +1,27 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 
 namespace ChurchManager.Application.Commands.AddIgreja
 {
-    public class AddIgrejaCommand : IRequest<Unit>
+    public static class AddIgrejaCommand 
     {
-        public string Cnpj { get; set; }
-        public string Nome { get; set; }
-        public string RazaoSocial { get; set; }
-        public bool Ativa { get; set; }
-        public bool Matriz { get; set; }
-        public string Endereco { get; set; }
-        public string Cep { get; set; }
-        public int DirigenteId { get; set; }
+        public record Command(string Cnpj,
+                        string Nome,
+                        string RazaoSocial,
+                        bool Ativa,
+                        bool Matriz,
+                        string Endereco,
+                        string Cep,
+                        int DirigenteId) : IRequest<Unit>;
 
-        public AddIgrejaCommand(IgrejaInputModel obj)
+        public sealed class Validator : AbstractValidator<Command>
         {
-            Cnpj = obj.Cnpj;
-            Nome = obj.Nome;
-            RazaoSocial = obj.RazaoSocial;
-            Ativa = obj.Ativa;
-            Endereco = obj.Endereco;
-            Cep = obj.Cep;
-            DirigenteId = obj.DirigenteId;
-            Matriz = obj.Matriz;
+            public Validator()
+            {
+                RuleFor(c => c.Cnpj)
+                    .NotEmpty().WithMessage("CNPJ não pode ser vazio")
+                    .Length(14);
+            }
         }
     }
 }

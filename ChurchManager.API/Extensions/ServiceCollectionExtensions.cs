@@ -28,7 +28,7 @@ namespace ChurchManager.API.Extensions
 
             //Commands
             services.AddMediatR(typeof(AddMembroCommand));
-            services.AddMediatR(typeof(AddIgrejaCommand));
+            services.AddMediatR(typeof(AddIgrejaCommand.Command));
 
             //Queries
             services.AddMediatR(typeof(GetMembrosQuery));

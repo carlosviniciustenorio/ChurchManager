@@ -15,7 +15,7 @@ namespace ChurchManager.Application.Tests.Commands
         {
             //Arrange
             var fixture = new Fixture();
-            var igrejaCommand = fixture.Create<AddIgrejaCommand>();
+            var igrejaCommand = fixture.Create<AddIgrejaCommand.Command>();
 
             var unitOfWork = new Mock<IUnitOfWork>();
             var cancelationToken = new CancellationToken();

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ChurchManager.Application.Commands.AddIgreja
 {
-    public class AddIgrejaCommandHandler : IRequestHandler<AddIgrejaCommand, Unit>
+    public class AddIgrejaCommandHandler : IRequestHandler<AddIgrejaCommand.Command, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
         public AddIgrejaCommandHandler(IUnitOfWork unitOfWork) => (_unitOfWork) = (unitOfWork);
 
-        public Task<Unit> Handle(AddIgrejaCommand request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(AddIgrejaCommand.Command request, CancellationToken cancellationToken)
         {
             var igreja = new Igreja(request.Cnpj, request.Nome, request.RazaoSocial, request.Endereco, request.Cep, true, request.Matriz);
             igreja.AdicionarDirigente(request.DirigenteId);

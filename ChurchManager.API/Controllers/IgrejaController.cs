@@ -48,18 +48,17 @@ namespace ChurchManager.API.Controllers
         [HttpPost]
         [Route("Cadastrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Igreja(IgrejaInputModel obj)
+        public async Task<IActionResult> Igreja(AddIgrejaCommand.Command command)
         {
             try
             {
-                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(obj.Cnpj, _unitOfWork);
+                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(command.Cnpj, _unitOfWork);
                 if (cnpjExiste) return BadRequest();
 
-                var matrizJaFoiCadastrada = obj.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_unitOfWork) : false;
+                var matrizJaFoiCadastrada = command.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_unitOfWork) : false;
                 if (matrizJaFoiCadastrada) return BadRequest();
 
-                var igrejaCommand = new AddIgrejaCommand(obj);
-                var result = await _mediator.Send(igrejaCommand);
+                var result = await _mediator.Send(command);
 
                 _unitOfWork.Save();
                 return Ok(result);
