@@ -1,6 +1,7 @@
 ﻿using ChurchManager.Application.Commands.AddIgreja;
 using ChurchManager.Application.Queries.GetIgrejas;
 using ChurchManager.Application.Servicos;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,14 +19,16 @@ namespace ChurchManager.API.Controllers
         private readonly IMediator _mediator;
         IUnitOfWork _unitOfWork;
         IIgrejaService _igrejaService;
+        IIgrejaRepositorio _igrejaRepositorio;
         #endregion
 
         #region Construtores
-        public IgrejaController(IUnitOfWork unitOfWork, IMediator mediator, IIgrejaService igrejaService)
+        public IgrejaController(IUnitOfWork unitOfWork, IIgrejaRepositorio igrejaRepositorio, IMediator mediator, IIgrejaService igrejaService)
         {
             _unitOfWork = unitOfWork;
             _mediator = mediator;
             _igrejaService = igrejaService;
+            _igrejaRepositorio = igrejaRepositorio;
         }
         #endregion
 
@@ -52,15 +55,15 @@ namespace ChurchManager.API.Controllers
         {
             try
             {
-                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(command.Cnpj, _unitOfWork);
+                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(command.Cnpj, _igrejaRepositorio);
                 if (cnpjExiste) return BadRequest();
 
-                var matrizJaFoiCadastrada = command.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_unitOfWork) : false;
+                var matrizJaFoiCadastrada = command.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_igrejaRepositorio) : false;
                 if (matrizJaFoiCadastrada) return BadRequest();
 
                 var result = await _mediator.Send(command);
 
-                _unitOfWork.Save();
+                _igrejaRepositorio.Save();
                 return Ok(result);
             }
             catch
@@ -80,19 +83,19 @@ namespace ChurchManager.API.Controllers
         {
             try
             {
-                var igreja = _unitOfWork.RepositorioIgreja.FindById(id);
+                var igreja = _igrejaRepositorio.FindById(id);
                 if (igreja == null) return BadRequest();
 
-                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(obj.Cnpj, _unitOfWork);
+                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(obj.Cnpj, _igrejaRepositorio);
                 if (cnpjExiste) return BadRequest();
 
-                var matrizJaFoiCadastrada = obj.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_unitOfWork) : false;
+                var matrizJaFoiCadastrada = obj.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_igrejaRepositorio) : false;
                 if (matrizJaFoiCadastrada) return BadRequest();
 
                 igreja.EditarIgreja(obj.Cnpj, obj.Nome, obj.RazaoSocial, obj.Endereco, obj.Cep, obj.DirigenteId, obj.Ativa, obj.Matriz);
 
-                _unitOfWork.RepositorioIgreja.Edit(igreja);
-                _unitOfWork.Save();
+                _igrejaRepositorio.Edit(igreja);
+                _igrejaRepositorio.Save();
                 return Ok(igreja);
             }
             catch
@@ -112,11 +115,11 @@ namespace ChurchManager.API.Controllers
         {
             try
             {
-                var igreja = _unitOfWork.RepositorioIgreja.FindById(id);
+                var igreja = _igrejaRepositorio.FindById(id);
                 if (igreja == null) return BadRequest();
 
-                _unitOfWork.RepositorioIgreja.Remove(igreja);
-                _unitOfWork.Save();
+                _igrejaRepositorio.Remove(igreja);
+                _igrejaRepositorio.Save();
                 return Ok();
             }
             catch

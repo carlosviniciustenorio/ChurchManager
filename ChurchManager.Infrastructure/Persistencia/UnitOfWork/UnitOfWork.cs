@@ -8,7 +8,6 @@ namespace ChurchManager.Infrastructure.Persistencia.UnitOfWork
         private CmDbContext _context;
 
         Repositorios.MembroRepositorio membroRepositorio;
-        Repositorios.IgrejaRepositorio igrejaRepositorio;
 
         public UnitOfWork([FromServices]CmDbContext context)
         {
@@ -20,15 +19,6 @@ namespace ChurchManager.Infrastructure.Persistencia.UnitOfWork
             {
                 return membroRepositorio = membroRepositorio ?? new MembroRepositorio(_context);
             }
-        }
-
-        public IgrejaRepositorio RepositorioIgreja
-        {
-            get
-            {
-                return igrejaRepositorio = igrejaRepositorio ?? new IgrejaRepositorio(_context);
-            }
-
         }
 
         public void Save()

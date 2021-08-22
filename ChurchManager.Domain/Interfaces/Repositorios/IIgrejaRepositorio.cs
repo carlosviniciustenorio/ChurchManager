@@ -16,5 +16,6 @@ namespace ChurchManager.Domain.Interfaces.Repositorios
         IQueryable<Igreja> FindBy(Expression<Func<Igreja, bool>> predicate);
         IQueryable<Igreja> FindAll();
         void Dispose();
+        void Save();
     }
 }

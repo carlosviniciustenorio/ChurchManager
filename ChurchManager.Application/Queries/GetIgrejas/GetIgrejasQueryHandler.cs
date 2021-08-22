@@ -1,4 +1,5 @@
-﻿using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
+﻿using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,14 +9,14 @@ namespace ChurchManager.Application.Queries.GetIgrejas
 {
     public class GetIgrejasQueryHandler : IRequestHandler<GetIgrejasQuery, List<IgrejaViewModel>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public GetIgrejasQueryHandler(IUnitOfWork unitOfWork) => (_unitOfWork) = (unitOfWork);
+        private readonly IIgrejaRepositorio _igrejaRepositorio;
+        public GetIgrejasQueryHandler(IIgrejaRepositorio igrejaRepositorio) => (_igrejaRepositorio) = (igrejaRepositorio);
 
         public Task<List<IgrejaViewModel>> Handle(GetIgrejasQuery request, CancellationToken cancellationToken)
         {
             var igrejas = new List<IgrejaViewModel>();
 
-            foreach (var igreja in _unitOfWork.RepositorioIgreja.FindAll())
+            foreach (var igreja in _igrejaRepositorio.FindAll())
             {
                 igrejas.Add(new IgrejaViewModel(igreja));
             }

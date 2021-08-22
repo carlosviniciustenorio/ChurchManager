@@ -1,10 +1,11 @@
-﻿using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
+﻿using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 
 namespace ChurchManager.Application.Servicos
 {
     public interface IIgrejaService
     {
-        bool CnpjJaFoiCadastrado(string cnpj, IUnitOfWork _unitOfWork);
-        bool MatrizJaFoiCadastrada(IUnitOfWork _unitOfWork);
+        bool CnpjJaFoiCadastrado(string cnpj, IIgrejaRepositorio _igrejaRepositorio);
+        bool MatrizJaFoiCadastrada(IIgrejaRepositorio _igrejaRepositorio);
     }
 }

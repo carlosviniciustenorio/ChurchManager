@@ -48,5 +48,10 @@ namespace ChurchManager.Infrastructure.Persistencia.Repositorios
         {
             _context.Set<T>().Add(entity);
         }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }
