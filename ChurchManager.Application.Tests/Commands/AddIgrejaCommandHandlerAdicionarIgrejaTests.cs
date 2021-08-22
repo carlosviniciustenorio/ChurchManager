@@ -11,23 +11,21 @@ namespace ChurchManager.Application.Tests.Commands
     public class AddIgrejaCommandHandlerAdicionarIgrejaTests
     {
         [Fact]
-        public void CommandHandler_AdicionandoIgrejaValida_RetornarSuceso()
+        public void CommandHandler_AdicionandoIgrejaValida_RetornarIdIgrejaCriada()
         {
             //Arrange
             var fixture = new Fixture();
             var igrejaCommand = fixture.Create<AddIgrejaCommand.Command>();
 
-            var unitOfWork = new Mock<IUnitOfWork>();
+            var igrejaRepositorio = new Mock<IIgrejaRepositorio>();
             var cancelationToken = new CancellationToken();
 
             //Act
-            var addIgrejaCommandHandler = new AddIgrejaCommandHandler(unitOfWork.Object);
-            addIgrejaCommandHandler.Handle(igrejaCommand, cancelationToken);
+            var addIgrejaCommandHandler = new AddIgrejaCommandHandler(igrejaRepositorio.Object);
+            var igreja = addIgrejaCommandHandler.Handle(igrejaCommand, cancelationToken);
 
             //Assert
-            //Não está sendo possível testar o handler sem uma implementação concreta do repositorio.
-            //É necessário melhorar a arquitetura.
-
+            Assert.True(igreja.Id > 0);
         }
     }
 }

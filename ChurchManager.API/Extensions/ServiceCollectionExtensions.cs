@@ -4,6 +4,8 @@ using ChurchManager.Application.Commands.AddUsuario;
 using ChurchManager.Application.Queries.GetIgrejas;
 using ChurchManager.Application.Queries.GetMembros;
 using ChurchManager.Application.Servicos;
+using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +16,12 @@ namespace ChurchManager.API.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            //UoW
             services.AddScoped<IUnitOfWork, ChurchManager.Infrastructure.Persistencia.UnitOfWork.UnitOfWork>();
             services.AddScoped<IUnitOfWorkLicenciado, ChurchManager.Infrastructure.Persistencia.UnitOfWork.UnitOfWorkLicenciado>();
+
+            //Repositorios
+            services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
 
             return services;
         }
