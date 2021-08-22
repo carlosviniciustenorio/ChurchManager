@@ -1,4 +1,5 @@
 ﻿using ChurchManager.Domain.Entidades;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,16 @@ namespace ChurchManager.Application.Servicos
 {
     public class MembroService : IMembroService
     {
-        private IUnitOfWork _unitOfWork;
+        private IMembroRepositorio _membroRepositorio;
 
-        public MembroService(IUnitOfWork unitOfWork)
+        public MembroService(IMembroRepositorio membroRepositorio)
         {
-            _unitOfWork = unitOfWork;
+            _membroRepositorio = membroRepositorio;
         }
 
         public bool ValidarSeCPFDoMembroJaFoiCadastrado(string cpf)
         {
-            var membroExistente = _unitOfWork.RepositorioMembro.FindBy(m => m.CPF == cpf);
+            var membroExistente = _membroRepositorio.FindBy(m => m.CPF == cpf);
 
             foreach (var item in membroExistente)
             {

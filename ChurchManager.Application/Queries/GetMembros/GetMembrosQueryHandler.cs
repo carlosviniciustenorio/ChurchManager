@@ -1,4 +1,5 @@
-﻿using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
+﻿using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,14 +9,14 @@ namespace ChurchManager.Application.Queries.GetMembros
 {
     public class GetMembrosQueryHandler : IRequestHandler<GetMembrosQuery, List<MembroViewModel>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public GetMembrosQueryHandler(IUnitOfWork unitOfWork) => (_unitOfWork) = (unitOfWork);
+        private readonly IMembroRepositorio _membroRepositorio;
+        public GetMembrosQueryHandler(IMembroRepositorio membroRepositorio) => (_membroRepositorio) = (membroRepositorio);
 
         public Task<List<MembroViewModel>> Handle(GetMembrosQuery request, CancellationToken cancellationToken)
         {
             var list = new List<MembroViewModel>();
 
-            foreach (var membro in _unitOfWork.RepositorioMembro.FindAll())
+            foreach (var membro in _membroRepositorio.FindAll())
             {
                 list.Add(new MembroViewModel(membro));
             }

@@ -2,6 +2,7 @@
 using ChurchManager.Application.Queries.GetMembros;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Entidades;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,14 +19,14 @@ namespace ChurchManager.API.Controllers
     {
         #region Campos
         private readonly IMediator _mediator;
-        IUnitOfWork _unitOfWork;
+        IMembroRepositorio _membroRepositorio;
         IMembroService _membroService;
         #endregion
 
         #region Construtor
-        public MembroController(IUnitOfWork unitOfWork, IMembroService membroService, IMediator mediator)
+        public MembroController(IMembroRepositorio membroRepositorio, IMembroService membroService, IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
+            _membroRepositorio = membroRepositorio;
             _membroService = membroService;
             _mediator = mediator;
         }
@@ -49,21 +50,16 @@ namespace ChurchManager.API.Controllers
         [HttpPost]
         [Route("Cadastrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Membro(MembroInputModel obj)
+        public async Task<IActionResult> Membro(AddMembroCommand.Command command)
         {
             try
             {
-                var membro = new AddMembroCommand(obj.Nome, obj.DataDeNascimento, obj.Sexo, obj.RG, obj.CPF, obj.NomePai, obj.NomeMae, obj.EstadoCivil,
-                    obj.DataDeCasamento, obj.NomeConjuge, obj.DataDeNascimentoConjuge, obj.Endereco, obj.Email,
-                    obj.Telefone, obj.Celular, obj.DataDoBatismo, obj.IgrejaAnterior, obj.IgrejaId, obj.NomeDoPastorAnterior,
-                    obj.Funcao, obj.Status, obj.Foto);
-
-                var cpfJaFoiCadastrado = _membroService.ValidarSeCPFDoMembroJaFoiCadastrado(membro.CPF);
+                var cpfJaFoiCadastrado = _membroService.ValidarSeCPFDoMembroJaFoiCadastrado(command.CPF);
                 if (cpfJaFoiCadastrado) return BadRequest();
 
-                var result = await _mediator.Send(membro);
+                var result = await _mediator.Send(command);
 
-                _unitOfWork.Save();
+                _membroRepositorio.Save();
                 return Ok(result);
             }
             catch
@@ -83,7 +79,7 @@ namespace ChurchManager.API.Controllers
         {
             try
             {
-                var membro = _unitOfWork.RepositorioMembro.FindById(id);
+                var membro = _membroRepositorio.FindById(id);
                 var membroAtual = new Membro(obj.Nome, obj.DataDeNascimento, obj.Sexo, obj.RG, obj.CPF, obj.NomePai, obj.NomeMae, obj.EstadoCivil,
                     obj.DataDeCasamento, obj.NomeConjuge, obj.DataDeNascimentoConjuge, obj.Endereco, obj.Email,
                     obj.Telefone, obj.Celular, obj.DataDoBatismo, obj.IgrejaAnterior, membro.IgrejaId, obj.NomeDoPastorAnterior,
@@ -95,8 +91,8 @@ namespace ChurchManager.API.Controllers
                 {
                     membro.AtualizarMembro(membroAtual);
 
-                    _unitOfWork.RepositorioMembro.Edit(membro);
-                    _unitOfWork.Save();
+                    _membroRepositorio.Edit(membro);
+                    _membroRepositorio.Save();
                 }
 
                 return Ok(membro);
@@ -118,11 +114,11 @@ namespace ChurchManager.API.Controllers
         {
             try
             {
-                var membro = _unitOfWork.RepositorioMembro.FindById(id);
+                var membro = _membroRepositorio.FindById(id);
                 if (membro != null)
                 {
-                    _unitOfWork.RepositorioMembro.Remove(membro);
-                    _unitOfWork.Save();
+                    _membroRepositorio.Remove(membro);
+                    _membroRepositorio.Save();
                 }
                 return Ok();
             }

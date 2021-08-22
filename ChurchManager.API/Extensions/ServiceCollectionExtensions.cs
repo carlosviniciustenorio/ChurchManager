@@ -17,11 +17,11 @@ namespace ChurchManager.API.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             //UoW
-            services.AddScoped<IUnitOfWork, ChurchManager.Infrastructure.Persistencia.UnitOfWork.UnitOfWork>();
             services.AddScoped<IUnitOfWorkLicenciado, ChurchManager.Infrastructure.Persistencia.UnitOfWork.UnitOfWorkLicenciado>();
 
             //Repositorios
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
+            services.AddScoped<IMembroRepositorio, MembroRepositorio>();
 
             return services;
         }
@@ -33,7 +33,7 @@ namespace ChurchManager.API.Extensions
             services.AddScoped<IIgrejaService, ChurchManager.Application.Servicos.IgrejaService>();
 
             //Commands
-            services.AddMediatR(typeof(AddMembroCommand));
+            services.AddMediatR(typeof(AddMembroCommand.Command));
             services.AddMediatR(typeof(AddIgrejaCommand.Command));
 
             //Queries
