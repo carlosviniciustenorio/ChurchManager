@@ -2,12 +2,7 @@
 using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ChurchManager.Application.Tests.Commands.Membro
