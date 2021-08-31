@@ -7,6 +7,7 @@ using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -35,6 +36,9 @@ namespace ChurchManager.API.Extensions
 
             //Commands
             services.AddMediatR(Assembly.GetAssembly(typeof(AddMembroCommand.Command)));
+
+            //FluentValidation
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIgrejaCommand.Validator>());
             
             return services;
         }
