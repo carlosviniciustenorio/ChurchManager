@@ -9,6 +9,7 @@ using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace ChurchManager.API.Extensions
 {
@@ -33,13 +34,8 @@ namespace ChurchManager.API.Extensions
             services.AddScoped<IIgrejaService, ChurchManager.Application.Servicos.IgrejaService>();
 
             //Commands
-            services.AddMediatR(typeof(AddMembroCommand.Command));
-            services.AddMediatR(typeof(AddIgrejaCommand.Command));
-
-            //Queries
-            services.AddMediatR(typeof(GetMembrosQuery));
-            services.AddMediatR(typeof(GetIgrejasQuery));
-
+            services.AddMediatR(Assembly.GetAssembly(typeof(AddMembroCommand.Command)));
+            
             return services;
         }
 

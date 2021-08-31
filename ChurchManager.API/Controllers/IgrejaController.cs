@@ -17,15 +17,13 @@ namespace ChurchManager.API.Controllers
     {
         #region Campos
         private readonly IMediator _mediator;
-        IUnitOfWork _unitOfWork;
         IIgrejaService _igrejaService;
         IIgrejaRepositorio _igrejaRepositorio;
         #endregion
 
         #region Construtores
-        public IgrejaController(IUnitOfWork unitOfWork, IIgrejaRepositorio igrejaRepositorio, IMediator mediator, IIgrejaService igrejaService)
+        public IgrejaController(IIgrejaRepositorio igrejaRepositorio, IMediator mediator, IIgrejaService igrejaService)
         {
-            _unitOfWork = unitOfWork;
             _mediator = mediator;
             _igrejaService = igrejaService;
             _igrejaRepositorio = igrejaRepositorio;
