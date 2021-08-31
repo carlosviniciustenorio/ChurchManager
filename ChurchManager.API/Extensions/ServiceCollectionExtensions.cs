@@ -19,7 +19,7 @@ namespace ChurchManager.API.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             //UoW
-            services.AddScoped<IUnitOfWorkLicenciado, ChurchManager.Infrastructure.Persistencia.UnitOfWork.UnitOfWorkLicenciado>();
+            services.AddScoped<IUnitOfWorkLicenciado, UnitOfWorkLicenciado>();
 
             //Repositorios
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
@@ -31,8 +31,8 @@ namespace ChurchManager.API.Extensions
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             //Services
-            services.AddScoped<IMembroService, ChurchManager.Application.Servicos.MembroService>();
-            services.AddScoped<IIgrejaService, ChurchManager.Application.Servicos.IgrejaService>();
+            services.AddScoped<IMembroService, MembroService>();
+            services.AddScoped<IIgrejaService, IgrejaService>();
 
             //Commands
             services.AddMediatR(Assembly.GetAssembly(typeof(AddMembroCommand.Command)));
