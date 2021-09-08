@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Servicos\**" />
+    <EmbeddedResource Remove="Servicos\**" />
+    <None Remove="Servicos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChurchManager.Domain\ChurchManager.Domain.csproj" />
   </ItemGroup>
 
@@ -17,10 +23,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Servicos\" />
   </ItemGroup>
 
 </Project>
