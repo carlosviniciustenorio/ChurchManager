@@ -1,8 +1,5 @@
 ﻿using ChurchManager.Application.Commands.AddIgreja;
 using ChurchManager.Application.Commands.AddMembro;
-using ChurchManager.Application.Commands.AddUsuario;
-using ChurchManager.Application.Queries.GetIgrejas;
-using ChurchManager.Application.Queries.GetMembros;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
@@ -10,6 +7,7 @@ using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace ChurchManager.API.Extensions
@@ -39,7 +37,13 @@ namespace ChurchManager.API.Extensions
 
             //FluentValidation
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIgrejaCommand.Validator>());
-            
+
+            //Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChurchManager API", Version = "v1", Description = "Church Manager API Integration"});
+            });
+
             return services;
         }
 

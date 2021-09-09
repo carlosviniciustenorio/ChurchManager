@@ -2,17 +2,12 @@
 using ChurchManager.Domain.Settings;
 using ChurchManager.Infrastructure.Persistencia;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ChurchManager.API.Common.Configuration
 {
@@ -33,6 +28,7 @@ namespace ChurchManager.API.Common.Configuration
                 .AddApplication()
                 .AddControllers();
 
+            //Identity
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddDefaultTokenProviders()
                     .AddEntityFrameworkStores<IdDbContext>();
