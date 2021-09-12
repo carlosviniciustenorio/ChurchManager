@@ -38,12 +38,6 @@ namespace ChurchManager.API.Extensions
             //FluentValidation
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIgrejaCommand.Validator>());
 
-            //Swagger
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChurchManager API", Version = "v1", Description = "Church Manager API Integration"});
-            });
-
             return services;
         }
 

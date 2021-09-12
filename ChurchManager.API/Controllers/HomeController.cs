@@ -51,7 +51,8 @@ namespace ChurchManager.API.Controllers
         }
 
         #region Métodos Privados
-        public async Task<string> GerarJwt(string email)
+        [NonAction]
+        private async Task<string> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
