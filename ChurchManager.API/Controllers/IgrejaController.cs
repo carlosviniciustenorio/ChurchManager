@@ -1,4 +1,5 @@
 ﻿using ChurchManager.Application.Commands.AddIgreja;
+using ChurchManager.Application.Commands.Igreja.UpdateIgreja;
 using ChurchManager.Application.Queries.GetIgrejas;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
@@ -32,8 +33,7 @@ namespace ChurchManager.API.Controllers
 
         #region GET
         
-        [HttpGet]
-        [Route("Buscar")]
+        [HttpGet("Buscar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Igreja()
         {
@@ -43,13 +43,21 @@ namespace ChurchManager.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Buscar/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Igreja([FromRoute] GetIgrejaQuery command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
         #endregion
 
         #region POST
         [HttpPost]
         [Route("Cadastrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Igreja(AddIgrejaCommand.Command command)
+        public async Task<IActionResult> Igreja([FromBody] AddIgrejaCommand.Command command)
         {
             try
             {
@@ -77,23 +85,11 @@ namespace ChurchManager.API.Controllers
         [HttpPatch]
         [Route("Editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Igreja(int id, IgrejaViewModel obj)
+        public ActionResult Igreja([FromBody] UpdateIgrejaCommand.Command command)
         {
             try
             {
-                var igreja = _igrejaRepositorio.FindById(id);
-                if (igreja == null) return BadRequest();
-
-                var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(obj.Cnpj, _igrejaRepositorio);
-                if (cnpjExiste) return BadRequest();
-
-                var matrizJaFoiCadastrada = obj.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_igrejaRepositorio) : false;
-                if (matrizJaFoiCadastrada) return BadRequest();
-
-                igreja.EditarIgreja(obj.Cnpj, obj.Nome, obj.RazaoSocial, obj.Endereco, obj.Cep, obj.DirigenteId, obj.Ativa, obj.Matriz);
-
-                _igrejaRepositorio.Edit(igreja);
-                _igrejaRepositorio.Save();
+                var igreja = _mediator.Send(command);
                 return Ok(igreja);
             }
             catch
