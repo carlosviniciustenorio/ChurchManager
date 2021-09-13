@@ -1,4 +1,5 @@
-﻿using ChurchManager.Application.Commands.AddMembro;
+﻿using ChurchManager.Application.Commands;
+using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Queries.GetMembros;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Entidades;
@@ -75,26 +76,11 @@ namespace ChurchManager.API.Controllers
         [HttpPatch]
         [Route("Editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Membro([FromBody] int id, MembroViewModel obj)
+        public ActionResult Membro([FromBody] UpdateMembroCommand.Command command)
         {
             try
             {
-                var membro = _membroRepositorio.FindById(id);
-                var membroAtual = new Membro(obj.Nome, obj.DataDeNascimento, obj.Sexo, obj.RG, obj.CPF, obj.NomePai, obj.NomeMae, obj.EstadoCivil,
-                    obj.DataDeCasamento, obj.NomeConjuge, obj.DataDeNascimentoConjuge, obj.Endereco, obj.Email,
-                    obj.Telefone, obj.Celular, obj.DataDoBatismo, obj.IgrejaAnterior, membro.IgrejaId, obj.NomeDoPastorAnterior,
-                    obj.Funcao, obj.Status, obj.Foto
-                    );
-
-                
-                if (membro != null)
-                {
-                    membro.AtualizarMembro(membroAtual);
-
-                    _membroRepositorio.Edit(membro);
-                    _membroRepositorio.Save();
-                }
-
+                var membro = _mediator.Send(command);
                 return Ok(membro);
             }
             catch
