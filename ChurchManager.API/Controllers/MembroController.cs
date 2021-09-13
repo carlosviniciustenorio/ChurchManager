@@ -50,7 +50,7 @@ namespace ChurchManager.API.Controllers
         [HttpPost]
         [Route("Cadastrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Membro(AddMembroCommand.Command command)
+        public async Task<IActionResult> Membro([FromBody]AddMembroCommand.Command command)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace ChurchManager.API.Controllers
         [HttpPatch]
         [Route("Editar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Membro(int id, MembroViewModel obj)
+        public ActionResult Membro([FromBody] int id, MembroViewModel obj)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace ChurchManager.API.Controllers
         [HttpDelete]
         [Route("Deletar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Membro(int id)
+        public ActionResult Membro([FromBody] int id)
         {
             try
             {

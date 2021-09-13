@@ -3,7 +3,5 @@ using System.Collections.Generic;
 
 namespace ChurchManager.Application.Queries.GetMembros
 {
-    public class GetMembrosQuery : IRequest<List<MembroViewModel>>
-    {
-    }
+    public sealed record GetMembrosQuery : IRequest<List<MembroViewModel>>;
 }

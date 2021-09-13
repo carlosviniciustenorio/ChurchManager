@@ -1,10 +1,8 @@
-﻿using ChurchManager.Domain.Entidades;
+﻿using ChurchManager.Application.Queries.GetMembros;
 using ChurchManager.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ChurchManager.Application.Commands.AddMembro
 {
@@ -14,7 +12,7 @@ namespace ChurchManager.Application.Commands.AddMembro
             string NomePai, string NomeMae, EstadoCivil EstadoCivil, DateTime DataDeCasamento,
             string NomeConjuge, DateTime DataDeNascimentoConjuge, string Endereco, string Email,
             string Telefone, string Celular, DateTime DataDoBatismo, string IgrejaAnterior, int IdIgreja,
-            string NomeDoPastorAnterior, Funcao Funcao, Status Status, string Foto) : IRequest<Unit>;
+            string NomeDoPastorAnterior, Funcao Funcao, Status Status, string Foto) : IRequest<MembroViewModel>;
 
         public sealed class Validator : AbstractValidator<Command>
         {

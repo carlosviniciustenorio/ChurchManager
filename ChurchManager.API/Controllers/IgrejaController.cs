@@ -105,7 +105,7 @@ namespace ChurchManager.API.Controllers
         [HttpDelete]
         [Route("Deletar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete([FromBody] int id)
         {
             try
             {
