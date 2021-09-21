@@ -1,4 +1,5 @@
 ﻿using ChurchManager.Domain.Entidades;
+using ChurchManager.Infrastructure.Persistencia.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,8 @@ namespace ChurchManager.Infrastructure.Persistencia
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Igreja>()
-                .Property<int>("DirigenteId");
-            modelBuilder.Entity<Igreja>()
-                .HasKey("DirigenteId");
 
-            modelBuilder.Entity<Membro>()
-                .Property<int>("IgrejaId");
-            modelBuilder.Entity<Membro>()
-                .HasKey("IgrejaId");
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MembroMap).Assembly);
         }
     }
 }
