@@ -1,4 +1,4 @@
-﻿using ChurchManager.Application.Commands.AddIgreja;
+﻿using ChurchManager.Application.Commands;
 using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;

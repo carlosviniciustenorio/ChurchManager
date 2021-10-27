@@ -1,6 +1,5 @@
-﻿using ChurchManager.Application.Commands.AddIgreja;
-using ChurchManager.Application.Commands.Igreja.UpdateIgreja;
-using ChurchManager.Application.Queries.GetIgrejas;
+﻿using ChurchManager.Application.Commands;
+using ChurchManager.Application.Queries;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.UnitOfWork;

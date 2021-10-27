@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using ChurchManager.Application.Commands.AddIgreja;
+using ChurchManager.Application.Commands;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using Moq;
 using System.Threading;
