@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using ChurchManager.Application.Commands.AddMembro;
+using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using Moq;
 using System.Threading;
@@ -17,10 +18,11 @@ namespace ChurchManager.Application.Tests.Commands.Membro
             var membroCommand = fixture.Create<AddMembroCommand.Command>();
 
             var membroRepositorio = new Mock<IMembroRepositorio>();
+            var membroService = new Mock<IMembroService>();
             var cancellationToken = new CancellationToken();
 
             //Act
-            var addMembroCommandHandler = new AddMembroCommandHandler(membroRepositorio.Object);
+            var addMembroCommandHandler = new AddMembroCommandHandler(membroRepositorio.Object, membroService.Object);
             var igreja = addMembroCommandHandler.Handle(membroCommand, cancellationToken);
 
             //Equals
