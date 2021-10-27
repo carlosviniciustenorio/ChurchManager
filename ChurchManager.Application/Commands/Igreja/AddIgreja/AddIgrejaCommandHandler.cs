@@ -1,4 +1,5 @@
-﻿using ChurchManager.Domain.Entidades;
+﻿using ChurchManager.Application.Servicos;
+using ChurchManager.Domain.Entidades;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using MediatR;
 using System.Threading;
@@ -13,6 +14,11 @@ namespace ChurchManager.Application.Commands
 
         public Task<Unit> Handle(AddIgrejaCommand.Command request, CancellationToken cancellationToken)
         {
+            var enderecoExistente = ViaCepService.GetEndereco(request.Cep, cancellationToken);
+
+            if (enderecoExistente is null)
+                return null;
+            
             var igreja = new Igreja(request.Cnpj, 
                                     request.Nome, 
                                     request.RazaoSocial, 
