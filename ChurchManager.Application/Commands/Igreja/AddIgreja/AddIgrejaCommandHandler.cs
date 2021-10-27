@@ -1,11 +1,10 @@
 ﻿using ChurchManager.Domain.Entidades;
 using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChurchManager.Application.Commands.AddIgreja
+namespace ChurchManager.Application.Commands
 {
     public class AddIgrejaCommandHandler : IRequestHandler<AddIgrejaCommand.Command, Unit>
     {
@@ -14,7 +13,14 @@ namespace ChurchManager.Application.Commands.AddIgreja
 
         public Task<Unit> Handle(AddIgrejaCommand.Command request, CancellationToken cancellationToken)
         {
-            var igreja = new Igreja(request.Cnpj, request.Nome, request.RazaoSocial, request.Endereco, request.Cep, true, request.Matriz);
+            var igreja = new Igreja(request.Cnpj, 
+                                    request.Nome, 
+                                    request.RazaoSocial, 
+                                    request.Endereco, 
+                                    request.Cep, 
+                                    true, 
+                                    request.Matriz);
+
             igreja.AdicionarDirigente(request.DirigenteId);
 
             if(_igrejaRepositorio != null) _igrejaRepositorio.Add(igreja);

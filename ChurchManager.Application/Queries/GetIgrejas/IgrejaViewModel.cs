@@ -1,10 +1,7 @@
 ﻿using ChurchManager.Domain.Entidades;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace ChurchManager.Application.Queries.GetIgrejas
+namespace ChurchManager.Application.Queries
 {
     public class IgrejaViewModel
     {

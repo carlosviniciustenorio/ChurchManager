@@ -1,15 +1,12 @@
-﻿using ChurchManager.Application.Queries.GetIgrejas;
+﻿using ChurchManager.Application.Queries;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChurchManager.Application.Commands.Igreja.UpdateIgreja
+namespace ChurchManager.Application.Commands
 {
     public sealed class UpdateIgrejaHandler : IRequestHandler<UpdateIgrejaCommand.Command, IgrejaViewModel>
     {

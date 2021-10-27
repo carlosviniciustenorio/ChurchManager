@@ -1,12 +1,11 @@
 ﻿using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ChurchManager.Application.Queries.GetIgrejas
+namespace ChurchManager.Application.Queries
 {
     public class GetIgrejasQueryHandler : IRequestHandler<GetIgrejasQuery, List<IgrejaViewModel>>,
                                           IRequestHandler<GetIgrejaQuery, IgrejaViewModel>

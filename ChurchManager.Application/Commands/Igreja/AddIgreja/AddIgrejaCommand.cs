@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 
-namespace ChurchManager.Application.Commands.AddIgreja
+namespace ChurchManager.Application.Commands
 {
     public static class AddIgrejaCommand 
     {

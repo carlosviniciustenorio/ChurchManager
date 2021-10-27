@@ -1,8 +1,8 @@
-﻿using ChurchManager.Application.Queries.GetIgrejas;
+﻿using ChurchManager.Application.Queries;
 using FluentValidation;
 using MediatR;
 
-namespace ChurchManager.Application.Commands.Igreja.UpdateIgreja
+namespace ChurchManager.Application.Commands
 {
     public static class UpdateIgrejaCommand
     {
