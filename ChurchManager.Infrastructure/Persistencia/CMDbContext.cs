@@ -18,7 +18,6 @@ namespace ChurchManager.Infrastructure.Persistencia
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MembroMap).Assembly);
         }
     }

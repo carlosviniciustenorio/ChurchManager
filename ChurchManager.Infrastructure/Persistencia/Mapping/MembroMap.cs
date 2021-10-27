@@ -13,8 +13,6 @@ namespace ChurchManager.Infrastructure.Persistencia.Mapping
     {
         public void Configure(EntityTypeBuilder<Membro> builder)
         {
-            //builder.Property<int>("IgrejaId");
-            //builder.HasKey("IgrejaId");
             builder.HasOne(c => c.Igreja).WithMany().HasForeignKey(c => c.IgrejaId);
         }
     }
