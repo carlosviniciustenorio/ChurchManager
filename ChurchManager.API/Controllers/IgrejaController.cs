@@ -6,6 +6,7 @@ using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
@@ -31,24 +32,16 @@ namespace ChurchManager.API.Controllers
         #endregion
 
         #region GET
-        
+
         [HttpGet("Buscar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Igreja()
-        {
-            var igrejaQuery = new GetIgrejasQuery();
-            var result = await _mediator.Send(igrejaQuery);
-
-            return Ok(result);
-        }
+        public async Task<List<IgrejaViewModel>> Igreja([FromQuery] GetIgrejasQuery command)
+            => await _mediator.Send(command);
 
         [HttpGet("Buscar/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Igreja([FromRoute] GetIgrejaQuery command)
-        {
-            var result = await _mediator.Send(command);
-            return Ok(result);
-        }
+        public async Task<IgrejaViewModel> Igreja([FromQuery] GetIgrejaQuery command)
+        => await _mediator.Send(command);
 
         #endregion
 
