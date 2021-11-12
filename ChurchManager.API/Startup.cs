@@ -48,7 +48,7 @@ namespace ChurchManager.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChurchManager API");
                 });
             }
             

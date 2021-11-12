@@ -83,7 +83,7 @@ namespace ChurchManager.API.Common.Configuration
                     }
                 };
                 c.CustomSchemaIds(x => schemaIdRegex.Replace(x.FullName!, "").Replace("+", "."));
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DiverPay API", Version = "v1", Description = "testando" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChurchManager API", Version = "v1", Description = "doing" });
                 c.OperationFilter<AuthorizationOperationFilter>();
                 c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
             });
