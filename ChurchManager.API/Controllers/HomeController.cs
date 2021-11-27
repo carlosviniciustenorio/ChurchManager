@@ -38,7 +38,6 @@ namespace ChurchManager.API.Controllers
         [Route("Acesso")]
         public async Task<IActionResult> Home([FromBody] UsuarioInputModel usuario)
         {
-            throw new NullReferenceException();
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
