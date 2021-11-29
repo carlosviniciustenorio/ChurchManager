@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.API", "ChurchManager.API\ChurchManager.API.csproj", "{25805AFD-56A2-4AC0-AAB4-39E0C19C4122}"
 EndProject
@@ -15,7 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChurchManager.Tests", "Chur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.Application.Tests", "ChurchManager.Application.Tests\ChurchManager.Application.Tests.csproj", "{770966FD-A03A-4FE9-9B94-A50D8A26456A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChurchManager.Domain.Tests", "ChurchManager.Domain.Tests\ChurchManager.Domain.Tests.csproj", "{A3BB8735-B657-414E-BE7F-997E5B06F7C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchManager.Domain.Tests", "ChurchManager.Domain.Tests\ChurchManager.Domain.Tests.csproj", "{A3BB8735-B657-414E-BE7F-997E5B06F7C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D408DE7-7736-40F8-9A90-1EB0DEEA4DAC}"
+	ProjectSection(SolutionItems) = preProject
+		ChurchManager.API\Dockerfile = ChurchManager.API\Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +57,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{25805AFD-56A2-4AC0-AAB4-39E0C19C4122} = {5D408DE7-7736-40F8-9A90-1EB0DEEA4DAC}
+		{EA3CF79E-8933-4B04-B6FC-3E6C0B3E4414} = {5D408DE7-7736-40F8-9A90-1EB0DEEA4DAC}
+		{FA8C11ED-C4BB-421B-A6AC-1B3EDB707F93} = {5D408DE7-7736-40F8-9A90-1EB0DEEA4DAC}
+		{0631EB45-3D93-481E-884C-8E4C4F71D2D7} = {5D408DE7-7736-40F8-9A90-1EB0DEEA4DAC}
 		{770966FD-A03A-4FE9-9B94-A50D8A26456A} = {9DAC3DE9-C920-4415-9C31-8EF44634D366}
 		{A3BB8735-B657-414E-BE7F-997E5B06F7C8} = {9DAC3DE9-C920-4415-9C31-8EF44634D366}
 	EndGlobalSection
