@@ -1,4 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-COPY bin/Release/net6.0/publish/ App/
-WORKDIR /App
+RUN mkdir /app
+WORKDIR /app
+COPY bin/Release/net6.0/publish/ app/
+EXPOSE 5000/tcp
 ENTRYPOINT ["dotnet", "ChurchManager.API.dll"]

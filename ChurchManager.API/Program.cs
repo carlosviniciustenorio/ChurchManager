@@ -15,6 +15,7 @@ namespace ChurchManager.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://*:5000/");
                     webBuilder.UseSentry(o =>
                     {
                         o.Dsn = "https://42bb28680a9c47ebaecf813e02f67c7b@o1053240.ingest.sentry.io/6037562";
