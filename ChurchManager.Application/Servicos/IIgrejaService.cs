@@ -1,5 +1,4 @@
 ﻿using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 
 namespace ChurchManager.Application.Servicos
 {

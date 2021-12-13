@@ -1,5 +1,4 @@
 ﻿using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,8 +14,9 @@ namespace ChurchManager.Application.Queries.GetMembros
         public Task<List<MembroViewModel>> Handle(GetMembrosQuery request, CancellationToken cancellationToken)
         {
             var list = new List<MembroViewModel>();
-
-            foreach (var membro in _membroRepositorio.FindAll())
+            var listOfMembers = _membroRepositorio.FindAll();
+            
+            foreach (var membro in listOfMembers)
             {
                 list.Add(new MembroViewModel(membro));
             }

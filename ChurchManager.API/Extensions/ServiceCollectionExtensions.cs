@@ -3,7 +3,6 @@ using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +15,6 @@ namespace ChurchManager.API.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            //UoW
-            services.AddScoped<IUnitOfWorkLicenciado, UnitOfWorkLicenciado>();
-
             //Repositorios
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
             services.AddScoped<IMembroRepositorio, MembroRepositorio>();

@@ -1,9 +1,4 @@
-﻿using ChurchManager.Domain.Entidades;
-using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ChurchManager.Domain.Interfaces.Repositorios;
 
 namespace ChurchManager.Application.Servicos
 {

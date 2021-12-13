@@ -25,16 +25,10 @@ namespace ChurchManager.API.Common.Configuration
         {
             services
                 .AddDbContext<CmDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
-                .AddDbContext<IdDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
                 .AddDbContext<LicenciadosDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("LicenciadosConnection")))
                 .AddInfrastructure()
                 .AddApplication()
                 .AddControllers();
-            
-            //Identity
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddDefaultTokenProviders()
-                    .AddEntityFrameworkStores<IdDbContext>();
 
             //JWT
             var appSettingsSection = configuration.GetSection("Setting");

@@ -2,7 +2,6 @@
 using ChurchManager.Application.Queries;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Infrastructure.Persistencia.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
