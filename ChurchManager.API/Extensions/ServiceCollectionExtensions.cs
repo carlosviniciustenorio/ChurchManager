@@ -18,6 +18,7 @@ namespace ChurchManager.API.Extensions
             //Repositorios
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
             services.AddScoped<IMembroRepositorio, MembroRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             return services;
         }

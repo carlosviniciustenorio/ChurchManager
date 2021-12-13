@@ -36,7 +36,7 @@ namespace ChurchManager.API.Controllers
 
         [HttpPost]
         [Route("Acesso")]
-        public async Task<IActionResult> Home([FromBody] UsuarioInputModel usuario)
+        public async Task<IActionResult> Home([FromBody] AddUsuarioCommand usuario)
         {
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));

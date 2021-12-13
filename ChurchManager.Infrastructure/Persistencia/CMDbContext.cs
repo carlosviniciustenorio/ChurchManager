@@ -11,6 +11,7 @@ namespace ChurchManager.Infrastructure.Persistencia
     {
         public DbSet<Igreja> Igreja { get; set; }
         public DbSet<Membro> Membro { get; set; }
+        public DbSet<Usuario> Usuario { get; private set; }
 
         public CmDbContext(DbContextOptions<CmDbContext> options)
             : base(options)
