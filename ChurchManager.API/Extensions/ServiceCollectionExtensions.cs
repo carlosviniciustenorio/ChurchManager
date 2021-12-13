@@ -2,6 +2,7 @@
 using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Domain.Interfaces.Servicos;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -28,6 +29,7 @@ namespace ChurchManager.API.Extensions
             //Services
             services.AddScoped<IMembroService, MembroService>();
             services.AddScoped<IIgrejaService, IgrejaService>();
+            services.AddScoped<IJwtService, JwtService>();
 
             //Commands
             services.AddMediatR(Assembly.GetAssembly(typeof(AddMembroCommand.Command)));

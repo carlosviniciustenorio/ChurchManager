@@ -1,4 +1,6 @@
-﻿using ChurchManager.Application.Commands.AddUsuario;
+﻿using ChurchManager.Application.Commands;
+using ChurchManager.Domain.Entidades;
+using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Domain.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,50 +20,46 @@ namespace ChurchManager.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly Setting _appSettings;
         private readonly ILogger<HomeController> _logger;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public HomeController(SignInManager<IdentityUser> signInManager, 
-            UserManager<IdentityUser> userManager, 
-            ILogger<HomeController> logger,
-            IOptions<Setting> appSettings)
+        public HomeController(
+                              ILogger<HomeController> logger,
+                              IOptions<Setting> appSettings, 
+                              IUsuarioRepositorio usuarioRepositorio)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
             _logger = logger;
             _appSettings = appSettings.Value;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         [HttpPost]
         [Route("Acesso")]
-        public async Task<IActionResult> Home([FromBody] AddUsuarioCommand usuario)
+        public async Task<IActionResult> Home([FromBody] AddUsuarioCommand request)
         {
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            var result = await _signInManager.PasswordSignInAsync(usuario.Email, usuario.Senha, false, true);
+            Usuario usuario = new(request.Email, request.Senha);
+            var result = _usuarioRepositorio.FindBy(c => c.Email == usuario.Email && c.Senha == usuario.Senha);
 
-            if (result.Succeeded)
-            {
-                return Ok(await GerarJwt(usuario.Email));
-            }
+            if (result != null)
+                return Ok(await GerarJwt(usuario));
 
             return BadRequest("Usuário ou senha inválidos");
         }
 
         #region Métodos Privados
         [NonAction]
-        private async Task<string> GerarJwt(string email)
+        private async Task<string> GerarJwt(Usuario usuario)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Audience = _appSettings.Audience,
                 Issuer = _appSettings.Emissor,
                 Audience = _appSettings.ValidoEm,
                 Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),

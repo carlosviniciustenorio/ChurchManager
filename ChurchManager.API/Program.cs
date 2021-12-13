@@ -1,3 +1,4 @@
+using ChurchManager.Domain.Entidades;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 

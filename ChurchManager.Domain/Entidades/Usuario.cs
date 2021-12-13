@@ -8,10 +8,11 @@ namespace ChurchManager.Domain.Entidades
     public sealed class Usuario
     {
         public int Id { get; private set; }
+        public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
 
-        public Usuario(string email, string senha) => (Email, Senha) = (email, EncodePassword(senha));
+        public Usuario(string nome, string email, string senha) => (Nome, Email, Senha) = (nome, email, EncodePassword(senha));
 
         private static string EncodePassword(string password)
         {

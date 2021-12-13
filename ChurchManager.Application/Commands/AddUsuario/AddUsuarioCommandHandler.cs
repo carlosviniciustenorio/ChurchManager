@@ -21,7 +21,7 @@ namespace ChurchManager.Application.Commands
             if (jaExisteUsuarioComEmailInformado != null && jaExisteUsuarioComEmailInformado.Any())
                 throw new Exception("E-mail informado já cadastrado");
 
-            Usuario usuario = new(request.Email, request.Senha);
+            Usuario usuario = new(request.Nome, request.Email, request.Senha);
 
             _usuarioRepositorio.Add(usuario);
             _usuarioRepositorio.Save();
