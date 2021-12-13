@@ -1,4 +1,5 @@
-﻿using ChurchManager.Application.Commands;
+﻿using ChurchManager.API.Filters;
+using ChurchManager.Application.Commands;
 using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
@@ -6,25 +7,34 @@ using ChurchManager.Domain.Interfaces.Servicos;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace ChurchManager.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddDependencies(this IServiceCollection services)
+        {
+            AddSwagger(services);
+            AddInfrastructure(services);
+            AddApplication(services);
+
+            return services;
+        }
+
+        public static void AddInfrastructure(this IServiceCollection services)
         {
             //Repositorios
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
             services.AddScoped<IMembroRepositorio, MembroRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-
-            return services;
         }
 
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services)
         {
             //Services
             services.AddScoped<IMembroService, MembroService>();
@@ -36,8 +46,35 @@ namespace ChurchManager.API.Extensions
 
             //FluentValidation
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddIgrejaCommand.Validator>());
+        }
 
-            return services;
+        public static void AddSwagger(this IServiceCollection services)
+        {
+            //Swagger
+            var schemaIdRegex = new Regex(@"(\w*\.)*");
+
+            services.AddSwaggerGen(c =>
+            {
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Coloque o TOKEN abaixo. Em ambiente dev, utilize @usuario para logar como qualquer usuario",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                c.CustomSchemaIds(x => schemaIdRegex.Replace(x.FullName!, "").Replace("+", "."));
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChurchManager API", Version = "v1", Description = "doing" });
+                c.OperationFilter<AuthorizationOperationFilter>();
+                c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+            });
         }
 
     }

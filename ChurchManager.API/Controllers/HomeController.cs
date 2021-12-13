@@ -41,34 +41,16 @@ namespace ChurchManager.API.Controllers
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            Usuario usuario = new(request.Email, request.Senha);
+            Usuario usuario = new(request.Nome, request.Email, request.Senha);
             var result = _usuarioRepositorio.FindBy(c => c.Email == usuario.Email && c.Senha == usuario.Senha);
 
             if (result != null)
-                return Ok(await GerarJwt(usuario));
+            {
+                //var token = await GerarJwt(usuario);
+                return Ok();
+            }
 
             return BadRequest("Usuário ou senha inválidos");
         }
-
-        #region Métodos Privados
-        [NonAction]
-        private async Task<string> GerarJwt(Usuario usuario)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Audience = _appSettings.Audience,
-                Issuer = _appSettings.Emissor,
-                Audience = _appSettings.ValidoEm,
-                Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
-        }
-
-        #endregion
     }
 }
