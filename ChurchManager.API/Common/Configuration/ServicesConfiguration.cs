@@ -26,61 +26,8 @@ namespace ChurchManager.API.Common.Configuration
             services
                 .AddDbContext<CmDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
                 .AddDbContext<LicenciadosDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("LicenciadosConnection")))
-                .AddInfrastructure()
-                .AddApplication()
+                .AddDependencies(configuration)
                 .AddControllers();
-
-            //JWT
-            var appSettingsSection = configuration.GetSection("Setting");
-            services.Configure<Setting>(appSettingsSection);
-
-            var appSettings = appSettingsSection.Get<Setting>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = true;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.ValidoEm,
-                    ValidIssuer = appSettings.Emissor
-                };
-            });
-
-            //Swagger
-            var schemaIdRegex = new Regex(@"(\w*\.)*");
-
-            services.AddSwaggerGen(c =>
-            {
-                var jwtSecurityScheme = new OpenApiSecurityScheme
-                {
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    Name = "JWT Authentication",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.Http,
-                    Description = "Coloque o TOKEN abaixo. Em ambiente dev, utilize @usuario para logar como qualquer usuario",
-
-                    Reference = new OpenApiReference
-                    {
-                        Id = JwtBearerDefaults.AuthenticationScheme,
-                        Type = ReferenceType.SecurityScheme
-                    }
-                };
-                c.CustomSchemaIds(x => schemaIdRegex.Replace(x.FullName!, "").Replace("+", "."));
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChurchManager API", Version = "v1", Description = "doing" });
-                c.OperationFilter<AuthorizationOperationFilter>();
-                c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-            });
         }
     }
 }
