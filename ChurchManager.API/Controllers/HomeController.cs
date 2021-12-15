@@ -37,16 +37,14 @@ namespace ChurchManager.API.Controllers
         [Route("Acesso")]
         public async Task<IActionResult> Home([FromBody] AddUsuarioCommand command)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            Usuario user = new(command.Email, command.Senha);
-            var usuario = _usuarioRepositorio.FindBy(c => c.Email == user.Email && c.Senha == user.Senha).FirstOrDefault();
+            var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
+            var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
 
             if (usuario != null)
-            {
                 return Ok(await GerarJwt(usuario));
-            }
 
             return BadRequest("Usuário ou senha inválidos");
         }
