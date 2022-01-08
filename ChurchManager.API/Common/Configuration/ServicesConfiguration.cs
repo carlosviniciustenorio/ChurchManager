@@ -1,6 +1,5 @@
 ﻿using ChurchManager.API.Extensions;
 using ChurchManager.API.Filters;
-using ChurchManager.Domain.Settings;
 using ChurchManager.Infrastructure.Persistencia;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

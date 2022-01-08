@@ -1,15 +1,16 @@
 ﻿using ChurchManager.API.Filters;
+using ChurchManager.Application.AuthHelper;
 using ChurchManager.Application.Commands;
 using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Domain.Settings;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -80,31 +81,25 @@ namespace ChurchManager.API.Extensions
 
         public static void AddAuthJWT(this IServiceCollection services, IConfiguration configuration)
         {
-            //JWT
-            var appSettingsSection = configuration.GetSection("Setting");
-            services.Configure<Setting>(appSettingsSection);
+            var jwtSettings = services.BuildServiceProvider().GetRequiredService<JwtSetupData>();
 
-            var appSettings = appSettingsSection.Get<Setting>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = true;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer("ECDsa", x =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidAudience = appSettings.ValidoEm,
-                    ValidIssuer = appSettings.Emissor
-                };
-            });
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateActor = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        RequireSignedTokens = true,
+                        RequireExpirationTime = true,
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidAudience = jwtSettings.Audience,
+                        IssuerSigningKey = ECDsaSecurity.ObterECDsaPublica(),
+                    };
+                });
         }
 
     }
