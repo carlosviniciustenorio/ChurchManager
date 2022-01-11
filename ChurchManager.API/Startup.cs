@@ -19,6 +19,9 @@ namespace ChurchManager.API
             services.AddSingleton(Configuration);
             services.AddSingleton<JwtSetupData>();
             ServicesConfiguration.Configure(services, Configuration);
+            services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,18 +38,14 @@ namespace ChurchManager.API
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChurchManager API");
                 });
             }
-            
+
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.MapControllers();
         }
     }
     public interface IStartup

@@ -27,7 +27,7 @@ namespace ChurchManager.Application.AuthHelper
             Audience = configuration["JwtData:Audience"];
             ValidForMinutes = Convert.ToInt32(configuration["JwtData:ValidForMinutes"]);
 
-            var signingKey = configuration["JwtData:SigningKey"];
+            var signingKey = ECDsaSecurity.ObterECDsaPublica().ToString();
             var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
             SigningCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256Signature);
         }

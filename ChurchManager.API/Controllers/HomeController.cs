@@ -37,11 +37,12 @@ namespace ChurchManager.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
-            var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
+            //var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
+            //var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
+            Usuario user = new(command.Email, command.Senha);
 
-            if (usuario != null)
-                return Ok(new TokenService().GerarECDsaAssymetric(usuario));
+            if (user != null)
+                return Ok(new TokenService().GerarECDsaAssymetric(user));
 
             return BadRequest("Usuário ou senha inválidos");
         }
