@@ -18,9 +18,12 @@ namespace ChurchManager.API
         {
             services.AddSingleton(Configuration);
             services.AddSingleton<JwtSetupData>();
-            ServicesConfiguration.Configure(services, Configuration);
+            
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+            
+            ServicesConfiguration.Configure(services, Configuration);
+            
             services.AddCors();
         }
 

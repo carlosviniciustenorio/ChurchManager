@@ -25,8 +25,7 @@ namespace ChurchManager.API.Common.Configuration
             services
                 .AddDbContext<CmDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
                 .AddDbContext<LicenciadosDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("LicenciadosConnection")))
-                .AddDependencies(configuration)
-                .AddControllers();
+                .AddDependencies(configuration);
         }
     }
 }

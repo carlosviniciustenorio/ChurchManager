@@ -89,10 +89,8 @@ namespace ChurchManager.API.Extensions
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidateActor = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
                         RequireSignedTokens = true,
                         RequireExpirationTime = true,
                         ValidIssuer = jwtSettings.Issuer,

@@ -32,7 +32,7 @@ namespace ChurchManager.Application.Servicos
                 Expires = Now.AddDays(20),
                 Subject = new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, "teste", ClaimValueTypes.Email)
+                    new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, "string", ClaimValueTypes.Email)
                 })
             };
             Jwt.SigningCredentials = signIn;
