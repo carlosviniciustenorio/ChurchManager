@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Sentry;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace ChurchManager.API.Controllers
 
         [HttpPost]
         [Route("Acesso")]
-        public async Task<IActionResult> Home([FromBody] AddUsuarioCommand command)
+        public IActionResult Home([FromBody] AddUsuarioCommand command)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
