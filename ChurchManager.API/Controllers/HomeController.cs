@@ -2,6 +2,7 @@
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Entidades;
 using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.RabbitMQ;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,15 @@ namespace ChurchManager.API.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IMessageProducer _messageProducer;
 
-        public HomeController(ILogger<HomeController> logger, 
-                              IUsuarioRepositorio usuarioRepositorio)
+        public HomeController(ILogger<HomeController> logger,
+                              IUsuarioRepositorio usuarioRepositorio,
+                              IMessageProducer messageProducer)
         {
             _logger = logger;
             _usuarioRepositorio = usuarioRepositorio;
+            _messageProducer = messageProducer;
         }
 
         [HttpPost]
@@ -37,6 +41,8 @@ namespace ChurchManager.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+
+            _messageProducer.SendMessage(command, "user.created");
 
             //var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
             //var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();

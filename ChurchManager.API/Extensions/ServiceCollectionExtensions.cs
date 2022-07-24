@@ -5,6 +5,7 @@ using ChurchManager.Application.Commands.AddMembro;
 using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.Persistencia.Repositorios;
+using ChurchManager.Infrastructure.RabbitMQ;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,6 +37,7 @@ namespace ChurchManager.API.Extensions
             services.AddScoped<IIgrejaRepositorio, IgrejaRepositorio>();
             services.AddScoped<IMembroRepositorio, MembroRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IMessageProducer, RabbitMQProducer>();
         }
 
         public static void AddApplication(this IServiceCollection services)
