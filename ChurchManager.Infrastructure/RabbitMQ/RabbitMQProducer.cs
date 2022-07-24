@@ -18,7 +18,7 @@ namespace ChurchManager.Infrastructure.RabbitMQ
             _configuration = configuration;
         }
 
-        public void SendMessage<T>(T message, string routingKey)
+        public void SendMessage<T>(T message, string exchange, string routingKey)
         {
             var hostName = _configuration["RabbitMQ:HostName"];
             var factory = new ConnectionFactory { HostName = hostName };
@@ -34,7 +34,7 @@ namespace ChurchManager.Infrastructure.RabbitMQ
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
 
-            channel.BasicPublish(exchange: "topicProducer", routingKey: routingKey, body: body);
+            channel.BasicPublish(exchange: exchange, routingKey: routingKey, body: body);
 
             connection.Close();
         }
