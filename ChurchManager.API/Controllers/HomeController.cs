@@ -42,11 +42,10 @@ namespace ChurchManager.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            _messageProducer.SendMessage(command, "topicProducer", "user.created");
-
             //var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
             //var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
             Usuario user = new(command.Email, command.Senha);
+            _messageProducer.SendMessage(command, "topicProducer", "user.created");
 
             if (user != null)
                 return Ok(new TokenService().GerarECDsaAssymetric(user));
