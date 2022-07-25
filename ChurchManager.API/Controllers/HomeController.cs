@@ -1,13 +1,23 @@
 ﻿using ChurchManager.Application.Commands;
+using ChurchManager.Application.Servicos;
+<<<<<<< HEAD
 using ChurchManager.Domain.Entidades;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Domain.Settings;
+using ChurchManager.Infrastructure.RabbitMQ;
+=======
+using ChurchManager.Application.Servicos;
+using ChurchManager.Domain.Entidades;
+using ChurchManager.Domain.Interfaces.Repositorios;
+using ChurchManager.Infrastructure.RabbitMQ;
+>>>>>>> test
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Sentry;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -20,35 +30,33 @@ namespace ChurchManager.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly Setting _appSettings;
         private readonly ILogger<HomeController> _logger;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IMessageProducer _messageProducer;
 
-        public HomeController(
-                              ILogger<HomeController> logger,
-                              IOptions<Setting> appSettings, 
-                              IUsuarioRepositorio usuarioRepositorio)
+        public HomeController(ILogger<HomeController> logger,
+                              IUsuarioRepositorio usuarioRepositorio,
+                              IMessageProducer messageProducer)
         {
             _logger = logger;
-            _appSettings = appSettings.Value;
             _usuarioRepositorio = usuarioRepositorio;
+            _messageProducer = messageProducer;
         }
 
         [HttpPost]
         [Route("Acesso")]
-        public async Task<IActionResult> Home([FromBody] AddUsuarioCommand request)
+        public IActionResult Home([FromBody] AddUsuarioCommand command)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            Usuario usuario = new(request.Nome, request.Email, request.Senha);
-            var result = _usuarioRepositorio.FindBy(c => c.Email == usuario.Email && c.Senha == usuario.Senha);
+            //var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
+            //var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
+            Usuario user = new(command.Nome, command.Email, command.Senha);
+            _messageProducer.SendMessage(command, "topicProducer", "user.created");
 
-            if (result != null)
-            {
-                //var token = await GerarJwt(usuario);
-                return Ok();
-            }
+            if (user != null)
+                return Ok(new TokenService().GerarECDsaAssymetric(user));
 
             return BadRequest("Usuário ou senha inválidos");
         }

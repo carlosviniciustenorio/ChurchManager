@@ -53,10 +53,12 @@ namespace ChurchManager.API.Controllers
             try
             {
                 var cnpjExiste = _igrejaService.CnpjJaFoiCadastrado(command.Cnpj, _igrejaRepositorio);
-                if (cnpjExiste) return BadRequest();
+                if (cnpjExiste)
+                    return BadRequest("CNPJ informado já cadastrado");
 
                 var matrizJaFoiCadastrada = command.Matriz == true ? _igrejaService.MatrizJaFoiCadastrada(_igrejaRepositorio) : false;
-                if (matrizJaFoiCadastrada) return BadRequest();
+                if (matrizJaFoiCadastrada) 
+                    return BadRequest("Já existe uma Matriz cadastrada");
 
                 var result = await _mediator.Send(command);
 

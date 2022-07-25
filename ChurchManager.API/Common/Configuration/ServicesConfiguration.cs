@@ -1,6 +1,5 @@
 ﻿using ChurchManager.API.Extensions;
 using ChurchManager.API.Filters;
-using ChurchManager.Domain.Settings;
 using ChurchManager.Infrastructure.Persistencia;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +25,7 @@ namespace ChurchManager.API.Common.Configuration
             services
                 .AddDbContext<CmDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
                 .AddDbContext<LicenciadosDBContext>(options => options.UseSqlServer(configuration.GetConnectionString("LicenciadosConnection")))
-                .AddDependencies()
+                .AddDependencies(configuration)
                 .AddControllers();
         }
     }
