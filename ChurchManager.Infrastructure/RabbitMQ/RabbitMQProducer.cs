@@ -20,8 +20,7 @@ namespace ChurchManager.Infrastructure.RabbitMQ
 
         public void SendMessage<T>(T message, string exchange, string routingKey)
         {
-            var hostName = _configuration["RabbitMQ:HostName"];
-            var factory = new ConnectionFactory { HostName = hostName };
+            var factory = new ConnectionFactory { HostName = _configuration["RabbitMQ:HostName"] };
             var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
