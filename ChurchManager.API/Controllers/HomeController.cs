@@ -33,13 +33,11 @@ namespace ChurchManager.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
-            //var hashSenha = Domain.Helpers.PasswordHelper.EncodePassword(command.Senha);
-            //var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == hashSenha).FirstOrDefault();
-            Usuario user = new(command.Nome, command.Email, command.Senha);
-            _messageProducer.SendMessage(command, "topicProducer", "user.created");
+            var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == Domain.Helpers.PasswordHelper.EncodePassword(command.Senha)).FirstOrDefault();
+            _messageProducer.SendMessage(command, "topicProducer", "user.login");
 
-            if (user != null)
-                return Ok(new TokenService().GerarECDsaAssymetric(user));
+            if (usuario != null)
+                return Ok(new TokenService().GerarECDsaAssymetric(usuario));
 
             return BadRequest("Usuário ou senha inválidos");
         }
