@@ -25,7 +25,7 @@ namespace ChurchManager.Infrastructure.RabbitMQ
             var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
-            channel.ExchangeDeclare(exchange: "eventbus.church",
+            channel.ExchangeDeclare(exchange: exchange,
                                     type: "topic", 
                                     durable: true, 
                                     autoDelete: false, 
