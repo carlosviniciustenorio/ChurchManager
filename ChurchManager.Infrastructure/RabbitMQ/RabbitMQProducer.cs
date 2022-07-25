@@ -18,7 +18,7 @@ namespace ChurchManager.Infrastructure.RabbitMQ
             _configuration = configuration;
         }
 
-        public async Task SendMessage<T>(T message, string exchange, string routingKey)
+        public void SendMessage<T>(T message, string exchange, string routingKey)
         {
             var factory = new ConnectionFactory { HostName = _configuration["RabbitMQ:HostName"] };
             var connection = factory.CreateConnection();

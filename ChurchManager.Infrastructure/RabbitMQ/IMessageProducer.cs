@@ -7,6 +7,6 @@ namespace ChurchManager.Infrastructure.RabbitMQ
 {
     public interface IMessageProducer
     {
-        Task SendMessage<T>(T message, string exchange, string routingKey);
+        void SendMessage<T>(T message, string exchange, string routingKey);
     }
 }

@@ -6,6 +6,7 @@ using ChurchManager.Infrastructure.RabbitMQ;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
@@ -34,7 +35,7 @@ namespace ChurchManager.API.Controllers
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
 
             var usuario = _usuarioRepositorio.FindBy(c => c.Email == command.Email && c.Senha == Domain.Helpers.PasswordHelper.EncodePassword(command.Senha)).FirstOrDefault();
-            _messageProducer.SendMessage(command, "topicProducer", "user.login");
+            Task.Run(() => _messageProducer.SendMessage(command, "topicProducer", "user.login"));
 
             if (usuario != null)
                 return Ok(new TokenService().GerarECDsaAssymetric(usuario));
