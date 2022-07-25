@@ -1,28 +1,11 @@
 ﻿using ChurchManager.Application.Commands;
 using ChurchManager.Application.Servicos;
-<<<<<<< HEAD
-using ChurchManager.Domain.Entidades;
-using ChurchManager.Domain.Interfaces.Repositorios;
-using ChurchManager.Domain.Settings;
-using ChurchManager.Infrastructure.RabbitMQ;
-=======
-using ChurchManager.Application.Servicos;
 using ChurchManager.Domain.Entidades;
 using ChurchManager.Domain.Interfaces.Repositorios;
 using ChurchManager.Infrastructure.RabbitMQ;
->>>>>>> test
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Sentry;
-using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChurchManager.API.Controllers
 {
